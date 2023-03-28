@@ -1,0 +1,20 @@
+name: Application build and test
+on:
+  push:
+env:
+  mvn_parameter: '-B -ntp'
+  java_version: 17
+jobs:
+  ci:
+    name: Application Build
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-java@v3
+        with:
+          java-version: '${{ env.java_version }}'
+          distribution: 'temurin'
+
+      - run: mvn ${{ env.mvn_parameter }} clean install
